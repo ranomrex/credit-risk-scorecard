@@ -21,7 +21,7 @@ Give Me Some Credit (Kaggle): 150,000 borrowers, 10 features, 6.7% default rate.
 
 Train and test AUC match closely, so the model generalizes well.
 
-![ROC curve](roc_curve.png)
+![ROC curve](download.png)
 
 **Top risk drivers:** credit utilization, past 30/60/90-day delinquencies. Age lowers risk.
 
