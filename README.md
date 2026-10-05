@@ -39,4 +39,23 @@ Assumptions: Rs 5,000 profit per good customer, Rs 50,000 loss per default.
 
 ## Limitations and Next Steps
 - DebtRatio is unreliable when income is missing, which made its coefficient counterintuitive.
-- Next: Weight of Evidence binning for a points-based scorecard, and a gradient boosting comparison.
+## Points Scorecard (Weight of Evidence)
+Each feature was split into groups (quintiles from training data only; late payments as 0, 1, 2+) and each group was given a Weight of Evidence. Information Value ranked the features: utilisation (1.06), 90-day lates (0.84), 30-59 day lates (0.68), 60-89 day lates (0.56), age (0.23); the rest were weak but above 0.02.
+
+Logistic regression on WoE values was scaled to points: 600 points at 50:1 good-to-bad odds, and 20 points doubles the odds.
+
+| Metric | Raw-feature model | WoE scorecard |
+|---|---|---|
+| Test AUC | 0.852 | 0.854 |
+| KS | 0.545 | 0.560 |
+
+All scorecard coefficients point the expected way, which fixes the DebtRatio sign problem in the raw model.
+
+| Score band | Default rate |
+|---|---|
+| Under 500 | 52% |
+| 500 to 550 | 21% |
+| 550 to 600 | 4.7% |
+| 600 and above | under 1% |
+
+Next steps: merge the first two utilisation groups so risk only moves one way, and compare with gradient boosting.
