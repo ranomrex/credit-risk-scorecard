@@ -12,6 +12,18 @@ Give Me Some Credit (Kaggle): 150,000 borrowers, 10 features, 6.7% default rate.
 4. **Scorecard:** Weight of Evidence binning and Information Value, scaled to points.
 5. **Strategy:** simulated approval cutoffs and profit under stated assumptions.
 
+## Statistical Test: Missing Income vs Reported Income
+About 20% of borrowers have no income on file. I tested whether their default rate differs, using a two-proportion z-test and a chi-square test (alpha = 0.05).
+
+| Income | Defaults | Borrowers | Default rate |
+|---|---|---|---|
+| Missing | 1,669 | 29,731 | 5.61% |
+| Reported | 8,357 | 120,268 | 6.95% |
+
+- Borrowers with missing income default less, not more: 1.34 percentage points lower (95% CI 1.04 to 1.63), about 0.81x the rate.
+- z = -8.25, chi-square = 68.1, p < 0.001 for both, so the difference is real.
+- This supports flagging missing income instead of dropping those rows or treating them as high risk. The test shows a difference, not its cause.
+
 ## Results: Raw-Feature Model
 | Metric | Train | Test |
 |---|---|---|
